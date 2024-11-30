@@ -1,12 +1,15 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:smc/Chatbot/generative_text_view.dart';
 import 'package:smc/InitialPages/Blog.dart';
+import 'package:smc/InitialPages/SearchPage.dart';
+import 'package:smc/InitialPages/barcode_scan.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:smc/InitialPages/Profile.dart';
 import 'package:smc/InitialPages/Premium.dart';
+import 'package:pdfx/pdfx.dart';
 
 class MyHomePage extends StatefulWidget {
   final String username;
@@ -61,17 +64,17 @@ class _MyHomePageState extends State<MyHomePage> {
       _researchPapers = [
         {
           'title': 'Food Scanner App Impact on Healthy Food Choice',
-          'pdfLink': 'WhatsInMyFood-main/assets/research_paper/F2.pdf'
+          'pdfLink': 'assets/research_paper/F2.pdf'
         },
         {
           'title':
               'A Mobile Adviser of Healthy Eating by Reading Ingredient Labels',
-          'pdfLink': 'WhatsInMyFood-main/assets/research_paper/F1.pdf'
+          'pdfLink': 'assets/research_paper/F1.pdf'
         },
         {
           'title':
               'A Comprehensive Review on Barcode TEchnologies in the Context of Food Labeling',
-          'pdfLink': 'WhatsInMyFood-main/assets/research_paper/F2.pdf'
+          'pdfLink': 'assets/research_paper/F2.pdf'
         },
       ];
     });
@@ -107,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
         iconTheme: const IconThemeData(color: Colors.black),
         title: Row(
           children: [
-            CircleAvatar(
+            const CircleAvatar(
               backgroundImage: AssetImage("assets/user_icon.png"),
               radius: 16,
             ),
@@ -189,12 +192,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   const SizedBox(height: 16),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      // Navigate to the SearchPage
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SearchPage(
+                                  username: 'Cookie',
+                                )), // Navigate to SearchPage
+                      );
+                    },
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 20),
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.8),
+                        color: Colors.white.withOpacity(0.9),
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(color: Colors.black, width: 1),
                       ),
@@ -210,23 +222,18 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
+
                   const SizedBox(height: 16),
                   const Text(
                     "News 📰",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
+
                   Container(
                     height: 120,
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Colors.blueAccent.shade100,
-                          Colors.blueAccent.shade400
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
+                      color: Colors.white.withOpacity(0.9),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: PageView.builder(
@@ -238,6 +245,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       },
                     ),
                   ),
+
                   const SizedBox(height: 16),
                   const Text(
                     "Research Backing Us 🔬",
@@ -247,15 +255,24 @@ class _MyHomePageState extends State<MyHomePage> {
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: _researchPapers.map((paper) {
-                        return SizedBox(
-                          width: MediaQuery.of(context).size.width / 3 - 24,
-                          child: _buildResearchPaperItem(context, paper),
+                      children: List.generate(_researchPapers.length, (index) {
+                        return Row(
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 3 - 24,
+                              child: _buildResearchPaperItem(
+                                  context, _researchPapers[index]),
+                            ),
+                            if (index < _researchPapers.length - 1)
+                              const SizedBox(
+                                  width:
+                                      16), // Space between items, but not after the last one
+                          ],
                         );
-                      }).toList(),
+                      }),
                     ),
                   ),
+
                   const SizedBox(height: 16),
                   // const Text(
                   //   "Find Blogs",
@@ -274,7 +291,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding: const EdgeInsets.symmetric(vertical: 20),
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.8),
+                        color: Colors.white.withOpacity(0.9),
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(color: Colors.black, width: 1),
                       ),
@@ -295,6 +312,23 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ),
+          Positioned(
+            bottom: 50,
+            right: 30,
+            child: FloatingActionButton(
+              onPressed: () {
+                // Handle chatbot interaction here
+                print("Chatbot icon clicked");
+                // Navigation to chatbot page
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ChatView()),
+                );
+              },
+              backgroundColor: Colors.white,
+              child: const Icon(Icons.chat, color: Colors.black),
+            ),
+          ),
         ],
       ),
     );
@@ -302,12 +336,22 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _buildRoundButton(BuildContext context, String label, IconData icon) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        if (label == "Scan Barcode") {
+          // Redirect to barcode_scan.dart when the "Scan Barcode" button is tapped
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const BarcodeScannerPage()),
+          );
+        } else if (label == "Scan Ingredients") {
+          // Handle other buttons here if needed
+        }
+      },
       child: Container(
         width: 170,
         height: 120,
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.8),
+          color: Colors.white.withOpacity(0.9),
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: Colors.black, width: 1),
         ),
@@ -330,15 +374,31 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  // Widget _buildCarouselItem(BuildContext context, String title) {
+  //   return Center(
+  //     child: Container(
+  //       padding: const EdgeInsets.all(16),
+  //       color: Colors.transparent,
+  //       child: Text(
+  //         title,
+  //         style: const TextStyle(
+  //             fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+  //       ),
+  //     ),
+  //   );
+  // }
   Widget _buildCarouselItem(BuildContext context, String title) {
     return Center(
       child: Container(
         padding: const EdgeInsets.all(16),
-        color: Colors.transparent,
+        color: Colors.transparent, // Ensure no solid background here
         child: Text(
           title,
           style: const TextStyle(
-              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.black, // Set text color to black
+          ),
         ),
       ),
     );
@@ -358,7 +418,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Container(
         width: MediaQuery.of(context).size.width / 3 - 24,
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.8),
+          color: Colors.white.withOpacity(0.9),
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: Colors.black, width: 1),
         ),
@@ -392,14 +452,16 @@ class _MyHomePageState extends State<MyHomePage> {
 class PDFViewerPage extends StatelessWidget {
   final String pdfLink;
 
-  PDFViewerPage({required this.pdfLink});
+  const PDFViewerPage({required this.pdfLink, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Research Paper')),
-      body: PDFView(
-        filePath: pdfLink,
+      body: PdfViewPinch(
+        //filePath: pdfLink,
+        controller:
+            PdfControllerPinch(document: PdfDocument.openAsset(pdfLink)),
       ),
     );
   }
