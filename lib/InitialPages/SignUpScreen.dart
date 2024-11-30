@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/InitialPages/MyHomePage.dart';
-import 'package:flutter_application_1/InitialPages/SurveyScreen.dart';
-import 'package:flutter_application_1/InitialPages/LoginScreen.dart';
+import 'package:smc/InitialPages/MyHomePage.dart';
+import 'package:smc/InitialPages/SurveyScreen.dart';
+import 'package:smc/InitialPages/LoginScreen.dart';
 
 class SignUpScreen extends StatelessWidget {
   @override

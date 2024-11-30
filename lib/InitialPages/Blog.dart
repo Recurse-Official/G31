@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/InitialPages/MyHomePage.dart';
+import 'package:smc/InitialPages/MyHomePage.dart';
 
 class BlogPostPage extends StatelessWidget {
   @override

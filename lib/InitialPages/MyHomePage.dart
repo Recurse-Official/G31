@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/InitialPages/Blog.dart';
+import 'package:smc/InitialPages/Blog.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:flutter_application_1/InitialPages/Profile.dart';
-import 'package:flutter_application_1/InitialPages/Premium.dart';
+import 'package:smc/InitialPages/Profile.dart';
+import 'package:smc/InitialPages/Premium.dart';
 
 class MyHomePage extends StatefulWidget {
   final String username;
