@@ -3,27 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/Chatbot/generative_text_view.dart';
 import 'package:flutter_application_1/InitialPages/Blog.dart';
+import 'package:flutter_application_1/InitialPages/Farmer-UI/FarmerProfile.dart';
+import 'package:flutter_application_1/InitialPages/Farmer-UI/FarmerSearch.dart';
+import 'package:flutter_application_1/InitialPages/LoginChoice.dart';
 import 'package:flutter_application_1/InitialPages/SearchPage.dart';
 import 'package:flutter_application_1/InitialPages/barcode_scan.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_application_1/InitialPages/Profile.dart';
 import 'package:flutter_application_1/InitialPages/Premium.dart';
-import 'package:pdfx/pdfx.dart';
 
-class MyHomePage extends StatefulWidget {
+class FarmerHome extends StatefulWidget {
   final String username;
 
-  MyHomePage({required this.username});
+  FarmerHome({required this.username});
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _FarmerHomePageState createState() => _FarmerHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _FarmerHomePageState extends State<FarmerHome> {
   late PageController _pageController;
   int _currentPageIndex = 0;
-  List<String> _carouselItems = ["News", "Blog", "Research"];
+  List<String> _carouselItems = ["News", "More News", "More and More News"];
   List<String> _newsTitles = [];
   List<Map<String, String>> _researchPapers = [];
 
@@ -64,17 +67,17 @@ class _MyHomePageState extends State<MyHomePage> {
       _researchPapers = [
         {
           'title': 'Food Scanner App Impact on Healthy Food Choice',
-          'pdfLink': 'assets/research_paper/F2.pdf'
+          'pdfLink': 'WhatsInMyFood-main/assets/research_paper/F2.pdf'
         },
         {
           'title':
               'A Mobile Adviser of Healthy Eating by Reading Ingredient Labels',
-          'pdfLink': 'assets/research_paper/F1.pdf'
+          'pdfLink': 'WhatsInMyFood-main/assets/research_paper/F1.pdf'
         },
         {
           'title':
               'A Comprehensive Review on Barcode TEchnologies in the Context of Food Labeling',
-          'pdfLink': 'assets/research_paper/F2.pdf'
+          'pdfLink': 'WhatsInMyFood-main/assets/research_paper/F2.pdf'
         },
       ];
     });
@@ -108,16 +111,29 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.black),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => LoginChoice()),
+            );
+          },
+        ),
         title: Row(
           children: [
-            const CircleAvatar(
-              backgroundImage: AssetImage("assets/user_icon.png"),
+            CircleAvatar(
+              backgroundImage: AssetImage("assets/farmerdp.png"),
               radius: 16,
             ),
             const SizedBox(width: 8),
-            Text(
-              'Hello, ${widget.username}',
-              style: const TextStyle(color: Colors.black),
+            Flexible(
+              child: Text(
+                'Hi, ${widget.username}',
+                style: const TextStyle(color: Colors.black),
+                overflow: TextOverflow.ellipsis, // Handles overflow
+                maxLines: 1, // Ensures the text stays on one line
+              ),
             ),
           ],
         ),
@@ -136,7 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ProfilePage()),
+                MaterialPageRoute(builder: (context) => FarmerProfile()),
               );
             },
           ),
@@ -147,7 +163,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        MyHomePage(username: widget.username)),
+                        FarmerHome(username: widget.username)),
               );
             },
           ),
@@ -197,8 +213,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const SearchPage(
-                                  username: 'Cookie',
+                            builder: (context) => FarmerSearch(
+                                  username: 'Pickle',
                                 )), // Navigate to SearchPage
                       );
                     },
@@ -212,7 +228,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       child: const Center(
                         child: Text(
-                          "Search Products 🔍",
+                          "Search Pesticides 🔍",
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -229,11 +245,33 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
-
+                  // Container(
+                  //   height: 120,
+                  //   decoration: BoxDecoration(
+                  //     gradient: LinearGradient(
+                  //       colors: [
+                  //         Colors.blueAccent.shade100,
+                  //         Colors.blueAccent.shade400
+                  //       ],
+                  //       begin: Alignment.topLeft,
+                  //       end: Alignment.bottomRight,
+                  //     ),
+                  //     borderRadius: BorderRadius.circular(10),
+                  //   ),
+                  //   child: PageView.builder(
+                  //     controller: _pageController,
+                  //     itemCount: _carouselItems.length,
+                  //     itemBuilder: (context, index) {
+                  //       return _buildCarouselItem(
+                  //           context, _carouselItems[index]);
+                  //     },
+                  //   ),
+                  // ),
                   Container(
                     height: 120,
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.9),
+                      color: Colors.white
+                          .withOpacity(0.9), // Background with 0.9 opacity
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: PageView.builder(
@@ -255,24 +293,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
-                      children: List.generate(_researchPapers.length, (index) {
-                        return Row(
-                          children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 3 - 24,
-                              child: _buildResearchPaperItem(
-                                  context, _researchPapers[index]),
-                            ),
-                            if (index < _researchPapers.length - 1)
-                              const SizedBox(
-                                  width:
-                                      16), // Space between items, but not after the last one
-                          ],
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: _researchPapers.map((paper) {
+                        return SizedBox(
+                          width: MediaQuery.of(context).size.width / 3 - 24,
+                          child: _buildResearchPaperItem(context, paper),
                         );
-                      }),
+                      }).toList(),
                     ),
                   ),
-
                   const SizedBox(height: 16),
                   // const Text(
                   //   "Find Blogs",
@@ -312,9 +341,10 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ),
+          // Add the chatbot button
           Positioned(
-            bottom: 50,
-            right: 30,
+            bottom: 50, // Distance from the bottom of the screen
+            right: 30, // Distance from the right of the screen
             child: FloatingActionButton(
               onPressed: () {
                 // Handle chatbot interaction here
@@ -341,7 +371,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // Redirect to barcode_scan.dart when the "Scan Barcode" button is tapped
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const BarcodeScannerPage()),
+            MaterialPageRoute(builder: (context) => BarcodeScannerPage()),
           );
         } else if (label == "Scan Ingredients") {
           // Handle other buttons here if needed
@@ -374,19 +404,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  // Widget _buildCarouselItem(BuildContext context, String title) {
-  //   return Center(
-  //     child: Container(
-  //       padding: const EdgeInsets.all(16),
-  //       color: Colors.transparent,
-  //       child: Text(
-  //         title,
-  //         style: const TextStyle(
-  //             fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-  //       ),
-  //     ),
-  //   );
-  // }
   Widget _buildCarouselItem(BuildContext context, String title) {
     return Center(
       child: Container(
@@ -452,16 +469,14 @@ class _MyHomePageState extends State<MyHomePage> {
 class PDFViewerPage extends StatelessWidget {
   final String pdfLink;
 
-  const PDFViewerPage({required this.pdfLink, super.key});
+  PDFViewerPage({required this.pdfLink});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Research Paper')),
-      body: PdfViewPinch(
-        //filePath: pdfLink,
-        controller:
-            PdfControllerPinch(document: PdfDocument.openAsset(pdfLink)),
+      body: PDFView(
+        filePath: pdfLink,
       ),
     );
   }

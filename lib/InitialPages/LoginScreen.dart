@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:smc/InitialPages/MyHomePage.dart';
-import 'package:smc/InitialPages/SignUpScreen.dart';
+//import 'package:flutter_application_1/InitialPages/LoginChoice.dart';
+import 'package:flutter_application_1/InitialPages/MyHomePage.dart';
+import 'package:flutter_application_1/InitialPages/SignUpScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override

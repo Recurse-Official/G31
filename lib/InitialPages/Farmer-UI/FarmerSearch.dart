@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
-import 'Profile.dart';
-import 'Premium.dart';
-import 'MyHomePage.dart';
-import 'EatList.dart'; // Importing the EatList screen
-import 'ShoppingCart.dart'; // Importing the ShoppingCart screen
+import 'package:flutter_application_1/InitialPages/Farmer-UI/FarmerHome.dart';
+import 'package:flutter_application_1/InitialPages/Farmer-UI/FarmerShop.dart';
+import 'package:flutter_application_1/InitialPages/Farmer-UI/UsedList.dart';
+import 'FarmerProfile.dart';
+import 'package:flutter_application_1/InitialPages/Premium.dart';
 
-class SearchPage extends StatefulWidget {
+class FarmerSearch extends StatefulWidget {
   final String username;
 
-  const SearchPage({super.key, required this.username});
+  const FarmerSearch({super.key, required this.username});
 
   @override
-  _SearchPageState createState() => _SearchPageState();
+  _FarmerSearchState createState() => _FarmerSearchState();
 }
 
-class _SearchPageState extends State<SearchPage> {
-  String selectedCategory = 'Gluten Free'; // Default selected category
-  List<String> eatList = []; // List to hold products for "Eat List"
+class _FarmerSearchState extends State<FarmerSearch> {
+  String selectedCategory = 'Organic'; // Default selected category
+  List<String> usedList = []; // List to hold products for "Eat List"
   List<String> shoppingCart = []; // List to hold products for "Shopping Cart"
 
   @override
@@ -29,12 +29,12 @@ class _SearchPageState extends State<SearchPage> {
         title: Row(
           children: [
             const CircleAvatar(
-              backgroundImage: AssetImage("assets/user_icon.png"),
+              backgroundImage: AssetImage("assets/farmerdp.png"),
               radius: 16,
             ),
             const SizedBox(width: 8),
             Text(
-              'Hello, ${widget.username}',
+              'Hi, ${widget.username}',
               style: const TextStyle(color: Colors.black),
             ),
           ],
@@ -54,7 +54,7 @@ class _SearchPageState extends State<SearchPage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ProfilePage()),
+                MaterialPageRoute(builder: (context) => FarmerProfile()),
               );
             },
           ),
@@ -65,7 +65,7 @@ class _SearchPageState extends State<SearchPage> {
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        MyHomePage(username: widget.username)),
+                        FarmerHome(username: widget.username)),
               );
             },
           ),
@@ -94,7 +94,7 @@ class _SearchPageState extends State<SearchPage> {
                       labelText: 'Search for products',
                       prefixIcon: Icon(Icons.search),
                       filled: true,
-                      fillColor: Colors.white.withOpacity(0.9),
+                      fillColor: Colors.white.withOpacity(0.7),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                         borderSide: BorderSide(color: Colors.black),
@@ -113,7 +113,7 @@ class _SearchPageState extends State<SearchPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ShoppingCart()),
+                                  builder: (context) => FarmerShop()),
                             );
                           },
                           style: ElevatedButton.styleFrom(
@@ -137,7 +137,7 @@ class _SearchPageState extends State<SearchPage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      EatList(eatList: eatList)),
+                                      UsedList(usedList: usedList)),
                             );
                           },
                           style: ElevatedButton.styleFrom(
@@ -150,7 +150,7 @@ class _SearchPageState extends State<SearchPage> {
                             side: BorderSide(
                                 color: Colors.black), // Black outline
                           ),
-                          child: const Text('Eat List'),
+                          child: const Text('Used List'),
                         ),
                       ),
                     ],
@@ -170,10 +170,10 @@ class _SearchPageState extends State<SearchPage> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        _buildCategoryBox('Gluten Free'),
-                        _buildCategoryBox('Vegan'),
-                        _buildCategoryBox('Low Sugar'),
                         _buildCategoryBox('Organic'),
+                        _buildCategoryBox('Carbamate'),
+                        _buildCategoryBox('AntiMicrobial'),
+                        _buildCategoryBox('Pheramones'),
                       ],
                     ),
                   ),
@@ -208,37 +208,33 @@ class _SearchPageState extends State<SearchPage> {
 
   List<Widget> _buildProductGrid() {
     List<Widget> productWidgets = [];
-    if (selectedCategory == 'Gluten Free') {
+    if (selectedCategory == 'Organic') {
       productWidgets = [
-        _buildProductBox('Lays', 'assets/Lays.png'),
-        _buildProductBox(
-            'Terra Veggie Crisps', 'assets/Terra Veggie Crisps.png'),
-        _buildProductBox(
-            'Grain Free Tortilla', 'assets/Grain Free Tortilla.png'),
-        _buildProductBox('Cabo Chips', 'assets/Cabo Chips.png'),
+        _buildProductBox('InsectKiller', 'assets/insectkiller.jpeg'),
+        _buildProductBox('Fungicide', 'assets/f.jpeg'),
+        _buildProductBox('Rose Plant Pesticide', 'assets/rose.jpeg'),
+        _buildProductBox('Almidi', 'assets/almid.jpeg'),
       ];
-    } else if (selectedCategory == 'Vegan') {
+    } else if (selectedCategory == 'Carbamate') {
       productWidgets = [
-        _buildProductBox('Sour Patch', 'assets/Sour Patch.png'),
-        _buildProductBox('SWAD Veg Biryani', 'assets/SWAD Veg Biryani.png'),
-        _buildProductBox('MTR Sambar', 'assets/MTR Sambar.png'),
-        _buildProductBox('Doritos', 'assets/Doritos.png'),
+        _buildProductBox('InsectKiller', 'assets/insectkiller.jpeg'),
+        _buildProductBox('Fungicide', 'assets/f.jpeg'),
+        _buildProductBox('Rose Plant Pesticide', 'assets/rose.jpeg'),
+        _buildProductBox('Almidi', 'assets/almid.jpeg'),
       ];
-    } else if (selectedCategory == 'Low Sugar') {
+    } else if (selectedCategory == 'AntiMicrobial') {
       productWidgets = [
-        _buildProductBox('Organic Vegetable', 'assets/Organic Vegetable.png'),
-        _buildProductBox('Pure Quinoa', 'assets/Pure Quinoa.png'),
-        _buildProductBox('Foxtail Millet', 'assets/Foxtail Millet.png'),
-        _buildProductBox(
-            'Organic Chocolate Fruits', 'assets/Organic Chocolate Fruits.png'),
+        _buildProductBox('InsectKiller', 'assets/insectkiller.jpeg'),
+        _buildProductBox('Fungicide', 'assets/f.jpeg'),
+        _buildProductBox('Rose Plant Pesticide', 'assets/rose.jpeg'),
+        _buildProductBox('Almidi', 'assets/almid.jpeg'),
       ];
-    } else if (selectedCategory == 'Organic') {
+    } else if (selectedCategory == 'Pheramones') {
       productWidgets = [
-        _buildProductBox('Muesli', 'assets/Muesli.png'),
-        _buildProductBox('BakeHouse Grains', 'assets/BakeHouse Grains.png'),
-        _buildProductBox('Pasta', 'assets/Pasta.png'),
-        _buildProductBox(
-            'Gluten Free Brownie', 'assets/Gluten Free Brownie.png'),
+        _buildProductBox('InsectKiller', 'assets/insectkiller.jpeg'),
+        _buildProductBox('Fungicide', 'assets/f.jpeg'),
+        _buildProductBox('Rose Plant Pesticide', 'assets/rose.jpeg'),
+        _buildProductBox('Almidi', 'assets/almid.jpeg'),
       ];
     }
     return productWidgets;
@@ -255,7 +251,7 @@ class _SearchPageState extends State<SearchPage> {
         margin: const EdgeInsets.only(right: 8),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: Color.fromARGB(222, 255, 255, 255),
+          color: Color(0xB3FFFFFF),
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: Colors.black, width: 1),
         ),
@@ -274,7 +270,7 @@ class _SearchPageState extends State<SearchPage> {
       width: 180,
       height: 200,
       decoration: BoxDecoration(
-        color: Color.fromARGB(222, 255, 255, 255),
+        color: Color(0xB3FFFFFF),
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: Colors.black, width: 1),
       ),
@@ -307,10 +303,10 @@ class _SearchPageState extends State<SearchPage> {
               children: [
                 // Icon for adding to Eat List
                 IconButton(
-                  icon: const Icon(Icons.fastfood),
+                  icon: const Icon(Icons.emoji_nature),
                   onPressed: () {
                     setState(() {
-                      eatList.add(productName);
+                      usedList.add(productName);
                     });
                     print('$productName added to Eat List');
                   },

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/InitialPages/Payments.dart';
+// import 'package:flutter_application_1/InitialPages/payment_screen.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 void main() => runApp(MyApp());
 
@@ -22,18 +25,19 @@ class PremiumPlanPage extends StatelessWidget {
         color: Colors.white.withOpacity(0.9), // Increased opacity of box
         borderRadius: BorderRadius.circular(15),
         border: Border.all(
-            color: Color.fromARGB(255, 182, 131, 43)), // Gold outline for boxes
+            color: const Color.fromARGB(
+                255, 182, 131, 43)), // Gold outline for boxes
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.2),
             blurRadius: 10,
-            offset: Offset(0, 4),
+            offset: const Offset(0, 4),
           ),
         ],
       ),
       child: Row(
         children: [
-          Icon(
+          const Icon(
             Icons.star, // Replace with actual relevant icon
             color: Colors.amber, // Golden stars
             size: 40,
@@ -84,7 +88,7 @@ class PremiumPlanPage extends StatelessWidget {
         elevation: 0,
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/bg2.png'), // Background image
             fit: BoxFit.cover,
@@ -103,12 +107,12 @@ class PremiumPlanPage extends StatelessWidget {
                   color: Colors.white.withOpacity(0.9),
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(
-                      color: Color.fromARGB(
+                      color: const Color.fromARGB(
                           255, 182, 131, 43)), // Gold outline for box
                 ),
-                child: Column(
+                child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
                       'Premium Plan Features',
                       style: TextStyle(
@@ -168,31 +172,38 @@ class PremiumPlanPage extends StatelessWidget {
 
               // Call to Action Button
               Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Handle premium upgrade logic
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(
-                        255, 213, 196, 86), // Or another accent color
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 18, horizontal: 80),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    shadowColor: Colors.black,
-                    elevation: 3,
-                  ),
-                  child: const Text(
-                    "Upgrade to Premium",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
+                  child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PaymentPage()),
+                  );
+                },
+                child: const Text(
+                  'Upgrade to Premium',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
                   ),
                 ),
-              ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromARGB(
+                      255, 237, 213, 61), // Or another accent color
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 18, horizontal: 80),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  shadowColor: Colors.black,
+                  elevation: 3,
+                  textStyle: const TextStyle(
+                    fontSize: 16, // Specify the text size
+                    fontWeight: FontWeight.w400, // Set font weight
+                    color: Colors.white, // Set text color
+                  ),
+                ),
+              )),
             ],
           ),
         ),

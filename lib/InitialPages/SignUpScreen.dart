@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:smc/InitialPages/MyHomePage.dart';
-import 'package:smc/InitialPages/SurveyScreen.dart';
-import 'package:smc/InitialPages/LoginScreen.dart';
+import 'package:flutter_application_1/InitialPages/LoginChoice.dart';
+import 'package:flutter_application_1/InitialPages/MyHomePage.dart';
+import 'package:flutter_application_1/InitialPages/SurveyScreen.dart';
+import 'package:flutter_application_1/InitialPages/LoginScreen.dart';
 
 class SignUpScreen extends StatelessWidget {
   @override
@@ -68,6 +69,7 @@ class SignUpScreen extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => LoginScreen(),
+                          //lead to option to choose between farmer or consumer
                         ),
                       );
                     },

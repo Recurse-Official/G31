@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:smc/InitialPages/MyHomePage.dart';
+import 'package:flutter_application_1/InitialPages/MyHomePage.dart';
 
 class BlogPostPage extends StatelessWidget {
   @override
@@ -55,12 +55,13 @@ class BlogPostPage extends StatelessWidget {
                   BlogPostCard(
                     imageUrl: 'assets/blog1.jpeg',
                     title: 'Fruits and Sugars - When Sugar is Good',
-                    author: 'Audery Chen',
+                    author: 'Nikita Sharma',
                     onTap: () {
                       // Navigate to the blog post details or do something when clicked
                       print('Blog 1 clicked');
                     },
                   ),
+
                   BlogPostCard(
                     imageUrl: 'assets/blog2.jpeg',
                     title: 'Halloween and Candy Labels Decoded',
@@ -80,6 +81,15 @@ class BlogPostPage extends StatelessWidget {
                     },
                   ),
                   // Add more BlogPostCards here as needed
+                  BlogPostCard(
+                    imageUrl: 'assets/blog5.png',
+                    title: 'The Pesticides Tradeoff',
+                    author: 'Pritilata Wadedar',
+                    onTap: () {
+                      // Navigate to the blog post details or do something when clicked
+                      print('Blog 4 clicked');
+                    },
+                  ),
                 ],
               ),
             ),
@@ -108,6 +118,7 @@ class BlogPostCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap, // Make the entire card clickable
       child: Container(
+        width: double.infinity, // Ensure container takes up the full width
         decoration: BoxDecoration(
           border: Border.all(
               color: Colors.black, width: 2.0), // Black border for the card
@@ -132,7 +143,7 @@ class BlogPostCard extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(8.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start, // Align left
                 children: [
                   // Title with white background
                   Text(

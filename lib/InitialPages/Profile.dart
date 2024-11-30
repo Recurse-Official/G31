@@ -1,133 +1,198 @@
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  double dailyCalorieGoal = 2000; // Example calorie goal
+  double consumedCalories = 1200; // Example current calorie count
+
   @override
   Widget build(BuildContext context) {
+    double progressPercentage =
+        consumedCalories.toDouble() / dailyCalorieGoal.toDouble();
+
+    // Determine the chart color based on progress percentage
+    Color chartColor;
+    if (progressPercentage <= 0.5) {
+      chartColor = Colors.red;
+    } else if (progressPercentage > 0.5 && progressPercentage <= 0.8) {
+      chartColor = Colors.yellow;
+    } else {
+      chartColor = Colors.green;
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        title: const Text('Profile'),
       ),
-      body: Container(
-        // Adding the background image
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/bg2.png'), // Path to bg2.png
-            fit: BoxFit.cover, // Makes the image cover the entire background
-          ),
-        ),
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Profile section with circle icon and username
-            Container(
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.7), // Semi-transparent box
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    radius: 40,
-                    backgroundImage: AssetImage('assets/user_icon.png'),
-                  ),
-                  SizedBox(width: 16),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Cookie Crumble', // Replace with actual username
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Colors
-                              .black, // Ensure text is visible on background
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        'Gender: F | Age: 20 | Height: \n5\'5\" | Weight: 56kg | Activity\nLevel: Moderate',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold, // Made text bold
-                          color: Colors
-                              .black, // Ensure text is visible on background
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+      body: SingleChildScrollView(
+        child: Container(
+          // Adding the background image
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/bg2.png'), // Path to bg2.png
+              fit: BoxFit.cover,
             ),
-            SizedBox(height: 24),
-            // Health-related clickable boxes
-            _buildClickableBox(context, 'Health Conditions: PCOD/PCOS'),
-            SizedBox(height: 8),
-            _buildClickableBox(context, 'Allergies: Egg, Gluten'),
-            SizedBox(height: 8),
-            _buildFamilyBox(context),
-          ],
+          ),
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Profile section with circle icon and username
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.7), // Semi-transparent box
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 40,
+                      backgroundImage: AssetImage('assets/user_icon.png'),
+                    ),
+                    SizedBox(width: 16),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Cookie Crumble',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          'Gender: F | Age: 20 | Height: \n5\'5" | Weight: 56kg | Activity\nLevel: Moderate',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 24),
+              // Daily Calorie Goal section
+              // Daily Calorie Goal section wrapped in a grey box
+              Container(
+                padding: const EdgeInsets.all(16), // Padding inside the box
+                margin: const EdgeInsets.symmetric(
+                    vertical: 12), // Space around the box
+                decoration: BoxDecoration(
+                  color: Colors.grey[200]!.withOpacity(
+                      0.8), // Grey background matching the surrounding
+                  borderRadius: BorderRadius.circular(8), // Rounded corners
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        progressPercentage > 1
+                            ? "Daily Calorie Goal\nExceeded by ${(consumedCalories - dailyCalorieGoal).toStringAsFixed(1)} cal"
+                            : "Daily Calorie Goal",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: progressPercentage > 1
+                              ? Colors.red
+                              : Colors.black,
+                        ),
+                      ),
+                    ),
+                    CircularPercentIndicator(
+                      radius: 60.0,
+                      lineWidth: 10.0,
+                      percent: progressPercentage > 1 ? 1 : progressPercentage,
+                      center: Text(
+                        '${consumedCalories.toStringAsFixed(0)} cal',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      progressColor: chartColor,
+                      backgroundColor: Colors.grey[300]!,
+                      circularStrokeCap: CircularStrokeCap.round,
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 24),
+              // Health-related clickable boxes
+              _buildClickableBox(context, 'Health Conditions: PCOD/PCOS'),
+              const SizedBox(height: 8),
+              _buildClickableBox(context, 'Allergies: Egg, Gluten'),
+              const SizedBox(height: 8),
+              _buildFamilyBox(context),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  // A method to build clickable boxes for Health Conditions and Allergies
   Widget _buildClickableBox(BuildContext context, String title) {
     return GestureDetector(
       onTap: () {
         // Handle box click
       },
       child: Container(
-        padding: EdgeInsets.all(16),
-        width: double.infinity, // Set to max width
+        padding: const EdgeInsets.all(16),
+        width: double.infinity,
         decoration: BoxDecoration(
-          color: Colors.grey[200]!.withOpacity(0.8), // Added opacity
+          color: Colors.grey[200]!.withOpacity(0.8),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Text(
           title,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
         ),
       ),
     );
   }
 
-  // A method to build the Family box with sub-boxes for family members' health conditions and allergies
   Widget _buildFamilyBox(BuildContext context) {
     return GestureDetector(
       onTap: () {
         // Handle family box click
       },
       child: Container(
-        padding: EdgeInsets.all(16),
-        width: double.infinity, // Set to max width
+        padding: const EdgeInsets.all(16),
+        width: double.infinity,
         decoration: BoxDecoration(
-          color: Colors.grey[200]!.withOpacity(0.8), // Added opacity
+          color: Colors.grey[200]!.withOpacity(0.8),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Family',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
-            SizedBox(height: 8),
-            _buildFamilyMemberBox('Family Member 1', 'Heart Concerns', 'Dust'),
-            SizedBox(height: 8),
-            _buildFamilyMemberBox('Family Member 2', 'None', 'Sulphur'),
-            SizedBox(height: 8),
-            _buildFamilyMemberBox(
-                'Family Member 3', 'Lactose Intolerance', 'Milk'),
+            const SizedBox(height: 8),
+            _buildFamilyMemberBox('Mother', 'Thyroid Imbalance', 'None'),
+            const SizedBox(height: 8),
+            _buildFamilyMemberBox('Father', 'None', 'Dust'),
+            const SizedBox(height: 8),
+            _buildFamilyMemberBox('Brother', 'Lactose Intolerance', 'Milk'),
           ],
         ),
       ),
     );
   }
 
-  // A method to build the sub-box for each family member
   Widget _buildFamilyMemberBox(
       String name, String healthConditions, String allergies) {
     return GestureDetector(
@@ -135,22 +200,23 @@ class ProfilePage extends StatelessWidget {
         // Handle family member click
       },
       child: Container(
-        padding: EdgeInsets.all(12),
-        width: double.infinity, // Set to max width
+        padding: const EdgeInsets.all(12),
+        width: double.infinity,
         decoration: BoxDecoration(
-          color: Colors.grey[300]!.withOpacity(0.8), // Added opacity
+          color: Colors.grey[300]!.withOpacity(0.8),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(name,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-            SizedBox(height: 4),
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+            const SizedBox(height: 4),
             Text('Health Conditions: $healthConditions',
-                style: TextStyle(fontSize: 14)),
-            SizedBox(height: 4),
-            Text('Allergies: $allergies', style: TextStyle(fontSize: 14)),
+                style: const TextStyle(fontSize: 14)),
+            const SizedBox(height: 4),
+            Text('Allergies: $allergies', style: const TextStyle(fontSize: 14)),
           ],
         ),
       ),
