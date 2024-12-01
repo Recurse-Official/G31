@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 
@@ -438,6 +439,8 @@
 // }
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+=======
+>>>>>>> 66bf978eb34976abeb83731596cabba3a5083463
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -449,7 +452,10 @@ class SurveyScreen extends StatefulWidget {
 class _SurveyScreenState extends State<SurveyScreen> {
   List<String> selectedAllergies = [];
   List<String> selectedHealthConcerns = [];
+<<<<<<< HEAD
   List<String> selectedDietaryPreferences = [];
+=======
+>>>>>>> 66bf978eb34976abeb83731596cabba3a5083463
   String? selectedGoal;
   String? selectedPeople;
   String otherAllergy = '';
@@ -459,7 +465,11 @@ class _SurveyScreenState extends State<SurveyScreen> {
   TextEditingController heightController = TextEditingController();
   TextEditingController weightController = TextEditingController();
   String? selectedActivityLevel;
+<<<<<<< HEAD
   TextEditingController nameController = TextEditingController();
+=======
+
+>>>>>>> 66bf978eb34976abeb83731596cabba3a5083463
   // Method to handle allergy selection
   void _onAllergySelected(String value) {
     setState(() {
@@ -576,15 +586,21 @@ class _SurveyScreenState extends State<SurveyScreen> {
                       "Other (please specify)"
                     ],
                     selectedHealthConcerns),
+<<<<<<< HEAD
                 _buildCheckboxSection(
                     "What are your dietary preferences?",
                     ["Vegetarian", "Vegan", "Keto", "Paleo", "Gluten-Free"],
                     selectedDietaryPreferences),
+=======
+>>>>>>> 66bf978eb34976abeb83731596cabba3a5083463
                 const SizedBox(height: 30),
                 Center(
                   child: ElevatedButton(
                     onPressed: () {
+<<<<<<< HEAD
                       _submitSurvey();
+=======
+>>>>>>> 66bf978eb34976abeb83731596cabba3a5083463
                       // Submit survey data
                     },
                     style: ElevatedButton.styleFrom(
@@ -740,7 +756,11 @@ class _SurveyScreenState extends State<SurveyScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
+<<<<<<< HEAD
             "Enter your height and weight",
+=======
+            "What is your height?",
+>>>>>>> 66bf978eb34976abeb83731596cabba3a5083463
             style: TextStyle(
                 fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
           ),
@@ -816,6 +836,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
     );
   }
 
+<<<<<<< HEAD
   // Future<void> _submitSurvey() async {
   //   try {
   //     // Collect the data
@@ -878,6 +899,8 @@ class _SurveyScreenState extends State<SurveyScreen> {
     }
   }
 
+=======
+>>>>>>> 66bf978eb34976abeb83731596cabba3a5083463
   Widget _buildCheckboxSection(
       String label, List<String> options, List<String> selectedValues) {
     return Container(

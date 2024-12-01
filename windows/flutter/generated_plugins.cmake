@@ -3,9 +3,13 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+<<<<<<< HEAD
   cloud_firestore
   file_selector_windows
   firebase_core
+=======
+  file_selector_windows
+>>>>>>> 66bf978eb34976abeb83731596cabba3a5083463
   pdfx
   permission_handler_windows
 )

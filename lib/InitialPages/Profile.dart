@@ -46,7 +46,11 @@ class _ProfilePageState extends State<ProfilePage> {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
+<<<<<<< HEAD
                   color: Colors.white.withOpacity(0.9), // Semi-transparent box
+=======
+                  color: Colors.white.withOpacity(0.7), // Semi-transparent box
+>>>>>>> 66bf978eb34976abeb83731596cabba3a5083463
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Row(
@@ -81,12 +85,19 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
               ),
+<<<<<<< HEAD
               const SizedBox(height: 2),
+=======
+              const SizedBox(height: 24),
+              // Daily Calorie Goal section
+              // Daily Calorie Goal section wrapped in a grey box
+>>>>>>> 66bf978eb34976abeb83731596cabba3a5083463
               Container(
                 padding: const EdgeInsets.all(16), // Padding inside the box
                 margin: const EdgeInsets.symmetric(
                     vertical: 12), // Space around the box
                 decoration: BoxDecoration(
+<<<<<<< HEAD
                   color: Colors.white.withOpacity(
                       0.9), // Grey background matching the surrounding
                   borderRadius: BorderRadius.circular(8), // Rounded corners
@@ -153,12 +164,52 @@ class _ProfilePageState extends State<ProfilePage> {
                         fontWeight: FontWeight.w400,
                         color: Colors.black.withOpacity(0.9),
                       ),
+=======
+                  color: Colors.grey[200]!.withOpacity(
+                      0.8), // Grey background matching the surrounding
+                  borderRadius: BorderRadius.circular(8), // Rounded corners
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        progressPercentage > 1
+                            ? "Daily Calorie Goal\nExceeded by ${(consumedCalories - dailyCalorieGoal).toStringAsFixed(1)} cal"
+                            : "Daily Calorie Goal",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: progressPercentage > 1
+                              ? Colors.red
+                              : Colors.black,
+                        ),
+                      ),
+                    ),
+                    CircularPercentIndicator(
+                      radius: 60.0,
+                      lineWidth: 10.0,
+                      percent: progressPercentage > 1 ? 1 : progressPercentage,
+                      center: Text(
+                        '${consumedCalories.toStringAsFixed(0)} cal',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      progressColor: chartColor,
+                      backgroundColor: Colors.grey[300]!,
+                      circularStrokeCap: CircularStrokeCap.round,
+>>>>>>> 66bf978eb34976abeb83731596cabba3a5083463
                     ),
                   ],
                 ),
               ),
 
+<<<<<<< HEAD
               const SizedBox(height: 2),
+=======
+              const SizedBox(height: 24),
+>>>>>>> 66bf978eb34976abeb83731596cabba3a5083463
               // Health-related clickable boxes
               _buildClickableBox(context, 'Health Conditions: PCOD/PCOS'),
               const SizedBox(height: 8),
@@ -181,7 +232,11 @@ class _ProfilePageState extends State<ProfilePage> {
         padding: const EdgeInsets.all(16),
         width: double.infinity,
         decoration: BoxDecoration(
+<<<<<<< HEAD
           color: Colors.white.withOpacity(0.9),
+=======
+          color: Colors.grey[200]!.withOpacity(0.8),
+>>>>>>> 66bf978eb34976abeb83731596cabba3a5083463
           borderRadius: BorderRadius.circular(8),
         ),
         child: Text(
@@ -201,7 +256,11 @@ class _ProfilePageState extends State<ProfilePage> {
         padding: const EdgeInsets.all(16),
         width: double.infinity,
         decoration: BoxDecoration(
+<<<<<<< HEAD
           color: Colors.white.withOpacity(0.9),
+=======
+          color: Colors.grey[200]!.withOpacity(0.8),
+>>>>>>> 66bf978eb34976abeb83731596cabba3a5083463
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
@@ -233,7 +292,11 @@ class _ProfilePageState extends State<ProfilePage> {
         padding: const EdgeInsets.all(12),
         width: double.infinity,
         decoration: BoxDecoration(
+<<<<<<< HEAD
           color: Colors.grey[200]!.withOpacity(0.8),
+=======
+          color: Colors.grey[300]!.withOpacity(0.8),
+>>>>>>> 66bf978eb34976abeb83731596cabba3a5083463
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(

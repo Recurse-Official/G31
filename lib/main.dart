@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 // import 'package:firebase_core/firebase_core.dart';
+=======
+>>>>>>> 66bf978eb34976abeb83731596cabba3a5083463
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,7 +13,10 @@ import 'InitialPages/MyHomePage.dart';
 //   runApp(const MyApp());
 //   //ProviderScope(child: MyApp());
 // }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 66bf978eb34976abeb83731596cabba3a5083463
 void main() {
   runApp(
     const ProviderScope(
@@ -19,6 +25,7 @@ void main() {
   );
 }
 
+<<<<<<< HEAD
 // Future<void> main() async {
 //   // Ensure WidgetsBinding is initialized
 //   WidgetsFlutterBinding.ensureInitialized();
@@ -34,6 +41,8 @@ void main() {
 //   );
 // }
 
+=======
+>>>>>>> 66bf978eb34976abeb83731596cabba3a5083463
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

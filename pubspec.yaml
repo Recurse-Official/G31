@@ -63,11 +63,14 @@ dependencies:
   flutter_pdfview:
   flutter_markdown:
   percent_indicator:
+<<<<<<< HEAD
   firebase_core: ^2.20.0  # Check for the latest version
   cloud_firestore:
   # cloud_firestore: ^4.15.9
   # firebase_auth: ^4.17.9
   # firebase_core: ^2.27.1
+=======
+>>>>>>> 66bf978eb34976abeb83731596cabba3a5083463
 
 
 dev_dependencies:
@@ -101,7 +104,10 @@ flutter:
     - assets/user_icon.png
     - assets/research_paper/F1.pdf
     - assets/research_paper/F2.pdf
+<<<<<<< HEAD
     - assets/research_paper/F3.pdf
+=======
+>>>>>>> 66bf978eb34976abeb83731596cabba3a5083463
     - assets/blog1.jpeg
     - assets/blog2.jpeg
     - assets/blog3.jpeg
@@ -128,7 +134,10 @@ flutter:
     - assets/rose.jpeg
     - assets/almid.jpeg
     - assets/insectkiller.jpeg
+<<<<<<< HEAD
     - assets/points_icon.png
+=======
+>>>>>>> 66bf978eb34976abeb83731596cabba3a5083463
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

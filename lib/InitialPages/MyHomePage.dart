@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/Chatbot/generative_text_view.dart';
 import 'package:flutter_application_1/InitialPages/Blog.dart';
+<<<<<<< HEAD
 import 'package:flutter_application_1/InitialPages/RewardPoints.dart';
+=======
+>>>>>>> 66bf978eb34976abeb83731596cabba3a5083463
 import 'package:flutter_application_1/InitialPages/SearchPage.dart';
 import 'package:flutter_application_1/InitialPages/barcode_scan.dart';
 import 'package:http/http.dart' as http;
@@ -74,7 +77,11 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         {
           'title':
+<<<<<<< HEAD
               'A Comprehensive Review on Barcode Technologies in the Context of Food Labeling',
+=======
+              'A Comprehensive Review on Barcode TEchnologies in the Context of Food Labeling',
+>>>>>>> 66bf978eb34976abeb83731596cabba3a5083463
           'pdfLink': 'assets/research_paper/F2.pdf'
         },
       ];
@@ -141,6 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
               );
             },
           ),
+<<<<<<< HEAD
           // IconButton(
           //   icon: const Icon(Icons.home),
           //   onPressed: () {
@@ -154,12 +162,20 @@ class _MyHomePageState extends State<MyHomePage> {
           // ),
           IconButton(
             icon: const Icon(Icons.card_giftcard_outlined),
+=======
+          IconButton(
+            icon: const Icon(Icons.home),
+>>>>>>> 66bf978eb34976abeb83731596cabba3a5083463
             onPressed: () {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
+<<<<<<< HEAD
                         RewardPoints(username: widget.username)),
+=======
+                        MyHomePage(username: widget.username)),
+>>>>>>> 66bf978eb34976abeb83731596cabba3a5083463
               );
             },
           ),
